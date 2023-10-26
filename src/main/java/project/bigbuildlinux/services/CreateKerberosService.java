@@ -18,7 +18,7 @@ public class CreateKerberosService
         Boolean isCommandOk = runShellCommand(command, newKerberos.getUser());
 
         if(isCommandOk)
-            return "Kerberos User created Successfully!";
+            return "Kerberos User Created Successfully!!";
         else
             return "Kerberos User creation failed!";
     }
@@ -31,5 +31,6 @@ public class CreateKerberosService
 
         String data = reader.readLine();
         return Objects.equals(data, "User " + username + " successfully created in the Kerberos.");
+
     }
 }

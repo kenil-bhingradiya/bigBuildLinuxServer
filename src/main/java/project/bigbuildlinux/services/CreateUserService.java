@@ -18,7 +18,7 @@ public class CreateUserService
         Boolean isCommandOk = runShellCommand(command, newUser.getUser());
 
         if(isCommandOk)
-            return "User created Successfully!";
+            return "User Created Successfully!!";
         else
             return "User creation failed!";
     }

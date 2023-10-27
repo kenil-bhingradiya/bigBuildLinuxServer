@@ -14,7 +14,8 @@ public class CreateKerberosService
 {
     public String createKerberosService(NewKerberosUserRequest newKerberos) throws IOException
     {
-        String command = "sh " + System.getProperty("user.dir") + "/src/main/java/project/bigbuildlinux/scripts/usercreation.sh";
+        String command = "sudo " + System.getProperty("user.dir") + "/src/main/java/project/bigbuildlinux/scripts/kerberoscreation.sh " + newKerberos.getUser() + " " + newKerberos.getPasswd();
+        System.out.println(command);
         Boolean isCommandOk = runShellCommand(command, newKerberos.getUser());
 
         if(isCommandOk)
@@ -29,8 +30,19 @@ public class CreateKerberosService
         InputStream is = proc.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 
-        String data = reader.readLine();
-        return Objects.equals(data, "User " + username + " successfully created in the Kerberos.");
+        String data = "", res="";
+        while( (data = reader.readLine()) != null)
+            res = data;
+        System.out.println(res);
+        return Objects.equals(res, "kadmin.local:  User " + username + " successfully created in the Kerberos.");
 
+    }
+
+    public boolean removeKerberosUser(String username) throws IOException
+    {
+        String command = "sudo delete_principle " + username;
+        Process proc = Runtime.getRuntime().exec(command);
+        proc.getOutputStream().close();
+        return true;
     }
 }

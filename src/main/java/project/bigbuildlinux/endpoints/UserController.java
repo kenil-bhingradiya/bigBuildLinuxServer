@@ -1,10 +1,7 @@
 package project.bigbuildlinux.endpoints;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import project.bigbuildlinux.endpoints.dtos.NewKerberosUserRequest;
 import project.bigbuildlinux.endpoints.dtos.NewUserRequest;
 import project.bigbuildlinux.services.CreateKerberosService;
@@ -40,4 +37,16 @@ public class UserController
         return createKerberosService.createKerberosService(newKerberosUser);
         //return "new kerberos user created!!";
     }
+    @GetMapping("/deleteUser/{username}")
+    public Boolean deleteUser(@PathVariable("username") String username) throws Exception
+    {
+        return createUserService.removeUser(username);
+    }
+
+    @GetMapping("/deleteKerberosUser/{username}")
+    public Boolean deleteKerberosUser(@PathVariable("username") String username) throws Exception
+    {
+        return createKerberosService.removeKerberosUser(username);
+    }
+
 }
